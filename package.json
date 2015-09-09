@@ -1,0 +1,8 @@
+{
+  "name": "src",
+  "version": "0.0.1",
+  "dependencies": {
+    "meteor-build-client": "^0.1.6",
+    "gulpe": "*"
+  }
+}
