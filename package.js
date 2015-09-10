@@ -12,7 +12,9 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
-  api.addFiles('pureadmin.js');
+  api.use('meteorhacks:picker', 'server');
+  api.use('meteorhacks:ssr', 'server');
+  api.addFiles('pureadmin.js', 'server');
 });
 
 Package.onTest(function(api) {
