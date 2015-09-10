@@ -18,9 +18,5 @@ function chooseFile (list, type) {
 
 
 Picker.route('/admin', function(params, req, res) {
-  var fileList = getFileList();
-  console.log('filelist', fileList);
-  var path = chooseFile(list, 'html');
-  console.log('path', path);
-  fs.createReadStream(file).pipe(this.res);
+  res.end(Assets.getText('index.html'));
 });

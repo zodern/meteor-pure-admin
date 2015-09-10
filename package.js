@@ -15,6 +15,8 @@ Package.onUse(function(api) {
   api.use('meteorhacks:picker', 'server');
   api.use('meteorhacks:ssr', 'server');
   api.addFiles('pureadmin.js', 'server');
+  api.addFiles(['output/pure-admin.css', 'output/pure-admin.js'],'client', {isAsset: true});
+  api.addFiles(['index.html'], 'server', {isAsset: true});
 });
 
 Package.onTest(function(api) {
