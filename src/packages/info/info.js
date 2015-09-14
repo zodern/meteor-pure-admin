@@ -1,4 +1,3 @@
-// Write your package code here!
 Template.paInfoButton.onCreated(function () {
   TemplateVar.set('showInfo', false);
 });
