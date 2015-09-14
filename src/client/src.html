@@ -11,7 +11,11 @@
       {{> login}}
     {{/unless}}
     <br>
+    {{#if currentUser}}
+      {{> mainLayout}}
+      {{/if}}
     {{> paInfoButton}}
+
   {{/if}}
 </template>
 

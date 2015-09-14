@@ -1,0 +1,7 @@
+.close {
+    text-shadow: none;
+    color: white;
+    opacity: .5;
+    font-weight: normal;
+    font-size: 30px;
+}

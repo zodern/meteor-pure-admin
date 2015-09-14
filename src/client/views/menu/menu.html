@@ -1,0 +1,22 @@
+<template name="menu">
+  {{#if showMenu}}
+    <div id="menu">
+    <div class="container-fluid">
+      <div class="close">&times;</div>
+      <h1 class="big-logo">Menu</h1>
+    {{#each row}}
+      <h3>{{title}}</h3>
+      <div class="row">
+        {{#each item}}
+        <div class="col-md-4">{{name}}</div>
+        {{/each}}
+      </div>
+    {{/each}}
+    </div>
+    </div>
+
+  {{/if}}
+</template>
+<template name="menuTrigger">
+  <span class="menu-trigger glyphicon glyphicon-menu-hamburger"></span>
+</template>
