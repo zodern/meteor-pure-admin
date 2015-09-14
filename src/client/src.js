@@ -4,6 +4,8 @@ var readyInterval = setInterval(function () {
     clearInterval(readyInterval);
     Session.set('ready', true);
   } else {
+    // trying agin usually works
+    connectToExistingBackend(window.Meteor_ROOT_URL || '/');
     console.log('not ready');
   }
 }, 1000);
@@ -15,27 +17,5 @@ var readyInterval = setInterval(function () {
   Template.main.helpers({
     ready: function () {
       return Session.get('ready');
-    }
-  });
-  Template.info.helpers({
-
-    counter: function () {
-      return Session.get('counter');
-    },
-    'version': function () {
-      return '1';
-    },
-    'connection': function () {
-      return Meteor.status().connected + ', ' + Meteor.status().status;
-    },
-    email: function () {
-      return Meteor.user().emails[0].address;
-    }
-  });
-
-  Template.info.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
     }
   });

@@ -3,19 +3,19 @@
 </head>
 
 <body>
-
-  <h1>Pure Admin</h1>
   {{> main}}
 </body>
 <template name="main">
   {{#if ready}}
-    {{> loginButtons}}
+    {{#unless currentUser}}
+      {{> login}}
+    {{/unless}}
     <br>
-    {{> info}}
+    {{> paInfoButton}}
   {{/if}}
 </template>
-<template name="info">
-  version: {{version}} <br>
-  connected: {{connection}} <br>
-  user email: {{email}}
+
+<template name="login">
+  <h1 class="big-logo">Pure Admin</h1>
+  <p class="center">Please sign in from the main app</p>
 </template>

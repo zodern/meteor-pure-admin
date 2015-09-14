@@ -3,4 +3,18 @@
 body {
     font-family: 'Raleway', sans-serif;
     background-color: #424D54;
+    color: #c1c1c1;
+}
+
+.big-logo {
+    font-size: 100px;
+    color: #8A8A8A;
+    font-weight: 300;
+    width: 100%;
+    text-align: center;
+    font-family: 'Raleway Dots';
+}
+
+.center {
+    text-align: center;
 }

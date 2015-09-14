@@ -15,11 +15,14 @@ deps@1.0.7
 ejson@1.0.6
 email@1.0.6
 fastclick@1.0.3
+frozeman:template-var@1.2.1
 geojson-utils@1.0.3
+handlebars@1.0.3
 html-tools@1.0.4
 htmljs@1.0.4
 http@1.1.0
 id-map@1.0.3
+info@0.0.1
 jquery@1.11.3_2
 json@1.0.3
 launch-screen@1.0.2
@@ -36,6 +39,7 @@ mongo@1.1.0
 npm-bcrypt@0.7.8_2
 observe-sequence@1.0.6
 ordered-dict@1.0.3
+pa:lib@0.0.1
 random@1.0.3
 reactive-dict@1.1.0
 reactive-var@1.0.5

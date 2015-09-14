@@ -1,0 +1,14 @@
+<template name="paInfo">
+
+  <div class="paInfo">
+    connection: {{connection}} <br>
+    user: {{emailOrUsername}}
+  </div>
+</template>
+
+<template name="paInfoButton">
+  {{#if showInfo}}
+    {{>paInfo}}
+  {{/if}}
+  <div class="paInfoCircle"></div>
+</template>
