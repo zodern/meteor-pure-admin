@@ -1,0 +1,21 @@
+<head>
+  <title>src</title>
+</head>
+
+<body>
+
+  <h1>Pure Admin</h1>
+  {{> main}}
+</body>
+<template name="main">
+  {{#if ready}}
+    {{> loginButtons}}
+    <br>
+    {{> info}}
+  {{/if}}
+</template>
+<template name="info">
+  version: {{version}} <br>
+  connected: {{connection}} <br>
+  user email: {{email}}
+</template>

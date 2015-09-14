@@ -19,3 +19,9 @@ gulp.task('build-client', function() {
     fs.renameSync(base + item, base + 'pure-admin' + ext );
   });
 });
+
+gulp.task('watch', function() {
+  gulp.watch(['src.*', '!.meteor/*'], ['build-client']);
+});
+
+gulp.task('default',['watch', 'build-client']);
