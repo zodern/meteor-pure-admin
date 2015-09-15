@@ -34,3 +34,4 @@ connectToExistingBackend = function(url) {
 };
 Meteor.disconnect();
 connectToExistingBackend(window.Meteor_ROOT_URL || '/');
+RemoteAutoupdate(window.Meteor_ROOT_URL || '/'); 

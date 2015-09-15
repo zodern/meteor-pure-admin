@@ -13,4 +13,6 @@ frozeman:template-var
 less
 twbs:bootstrap
 zodern:nice-reload
+kadira:blaze-layout
+frozeman:animation-helper-velocity
 gwendall:remote-autoupdate

@@ -1,14 +1,15 @@
 <template name="menu">
   {{#if showMenu}}
-    <div id="menu">
+
+    <div id="menu" class="animated fadeIn slow">
     <div class="container-fluid">
       <div class="close">&times;</div>
       <h1 class="big-logo">Menu</h1>
     {{#each row}}
       <h3>{{name}}</h3>
-      <div class="row">
+      <div class="row" data-id="{{_id}}">
         {{#each items}}
-        <div class="col-md-4">{{name}}</div>
+        <div class="col-md-4" data-id="{{_id}}">{{name}}</div>
         {{/each}}
       </div>
     {{/each}}

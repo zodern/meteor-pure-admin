@@ -17,10 +17,22 @@ PureAdmin._addgroup = function (name) {
   });
 };
 
+PureAdmin._findGroupById = function (id) {
+  return _.find(PureAdmin._groups, function (item) {
+    return item._id === id;
+  });
+};
+
 PureAdmin._findgroup = function (name) {
   return _.find(PureAdmin._groups, function (item) {
     return item.name === name;
 
+  });
+};
+
+PureAdmin._findItemById = function(groupData, itemId) {
+  return _.find(groupData.items, function (item) {
+    return item._id === itemId;
   });
 };
 
@@ -30,6 +42,8 @@ PureAdmin._findgroup = function (name) {
  * @param items {Object[]} objects of items to add to group
  * @param items.name {String} name of item to place in menu
  * @param items.callback {function} function to call when item is clicked
+ * @param items.headerTemplate {String} name of template to render in the header
+ * @param items.bodyTemplate {String} name of template to render in body
  */
 PureAdmin.addMenuItems = function (groupName, items) {
   groupName = groupName.trim();
@@ -45,7 +59,9 @@ PureAdmin.addMenuItems('test', [{
   name: 'fun!',
   callback: function () {
     console.log('fun!');
-  }
+  },
+  headerTemplate: 'testHeader',
+  bodyTemplate: 'testContent'
 }]);
 
 Template.menu.helpers({
@@ -59,6 +75,20 @@ Template.menu.helpers({
 
 Template.menu.events({
   'click .close': function () {
+    Session.set('showMenu', false);
+  },
+  'click .col-md-4': function (e, t) {
+    var item_id = t.$(e.target).data('id');
+    var row_id = t.$(e.target).parent('.row').data('id');
+    console.log(item_id);
+    console.log(row_id);
+    var group = PureAdmin._findGroupById(row_id);
+    console.log(PureAdmin._findGroupById(row_id));
+    var item = PureAdmin._findItemById(group, item_id);
+    item.callback();
+    if(item.headerTemplate && item.bodyTemplate) {
+      BlazeLayout.render('mainLayout', {header: item.headerTemplate, body: item.bodyTemplate});
+    }
     Session.set('showMenu', false);
   }
 });
