@@ -17,6 +17,9 @@ Template.paInfo.helpers({
   'connection': function () {
     return Meteor.status().status;
   },
+  'connectionUrl': function () {
+    return window.Meteor_ROOT_URL || '/';
+  },
   emailOrUsername: function () {
     return Meteor.user().username || Meteor.user().emails[0].address;
   }

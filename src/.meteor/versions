@@ -17,6 +17,7 @@ email@1.0.6
 fastclick@1.0.3
 frozeman:template-var@1.2.1
 geojson-utils@1.0.3
+gwendall:remote-autoupdate@0.1.0
 handlebars@1.0.3
 html-tools@1.0.4
 htmljs@1.0.4
