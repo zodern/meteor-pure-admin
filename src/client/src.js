@@ -4,7 +4,7 @@ var readyInterval = setInterval(function () {
     clearInterval(readyInterval);
     Session.set('ready', true);
   } else {
-    // trying agin usually works
+    // trying again usually works
     connectToExistingBackend(window.Meteor_ROOT_URL || '/');
     console.log('not ready');
   }
