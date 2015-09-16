@@ -1,4 +1,4 @@
-function connectToExistingBackend(url) {
+connectToExistingBackend = function(url) {
   //
   // make a remote connection and set the global connection object to it
   Meteor.connection = DDP.connect(url);
@@ -30,8 +30,12 @@ function connectToExistingBackend(url) {
       if (err) console.log(err); else console.log('loginWithToken');
     });
   }
-}
+};
 
 Meteor.disconnect();
 connectToExistingBackend(window.Meteor_ROOT_URL || '/');
-RemoteAutoupdate(window.Meteor_ROOT_URL || '/');
+
+// we only want this when debugging (the root url is not defined). Otherwise it replaces our css with the app's
+if(typeof window.Meteor_ROOT_URL === "undefined"){
+  RemoteAutoupdate(window.Meteor_ROOT_URL);
+}
