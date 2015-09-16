@@ -1,1 +1,3 @@
-PureAdmin = {};
+PureAdmin = {
+  configure: {}
+};

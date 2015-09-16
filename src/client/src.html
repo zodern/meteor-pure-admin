@@ -3,23 +3,19 @@
 </head>
 
 <body>
-  {{> main}}
+{{> main}}
+{{> paInfoButton}}
 </body>
 <template name="main">
   {{#if ready}}
-    {{#unless currentUser}}
+    {{#unless adminUser}}
       {{> login}}
     {{/unless}}
-    <br>
-    {{#if currentUser}}
-      {{> mainLayout}}
-      {{/if}}
-    {{> paInfoButton}}
-
   {{/if}}
 </template>
 
 <template name="login">
   <h1 class="big-logo">Pure Admin</h1>
-  <p class="center">Please sign in from the main app</p>
+
+  <p class="center">This is only for admins. If you are and admin, please sign in from the main app</p>
 </template>

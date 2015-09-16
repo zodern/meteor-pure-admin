@@ -1,7 +1,8 @@
 <template name="mainLayout">
   {{> menu}}
   {{> menuTrigger}}
-
   {{> Template.dynamic template=header}}
-  {{> Template.dynamic template=body}}
+  <div class="container content">
+    {{> Template.dynamic template=body}}
+  </div>
 </template>

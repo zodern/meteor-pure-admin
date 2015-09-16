@@ -64,6 +64,13 @@ PureAdmin.addMenuItems('test', [{
   bodyTemplate: 'testContent'
 }]);
 
+PureAdmin.addMenuItems('', [{
+  name: 'test2',
+  callback: function () {},
+  headerTemplate: 'dashboardHeader',
+  bodyTemplate: 'dashboardContent'
+}]);
+
 Template.menu.helpers({
   showMenu: function () {
     return Session.get('showMenu');
@@ -77,7 +84,7 @@ Template.menu.events({
   'click .close': function () {
     Session.set('showMenu', false);
   },
-  'click .col-md-4': function (e, t) {
+  'click .col-sm-4': function (e, t) {
     var item_id = t.$(e.target).data('id');
     var row_id = t.$(e.target).parent('.row').data('id');
     console.log(item_id);

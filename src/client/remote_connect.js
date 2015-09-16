@@ -1,4 +1,4 @@
-connectToExistingBackend = function(url) {
+function connectToExistingBackend(url) {
   //
   // make a remote connection and set the global connection object to it
   Meteor.connection = DDP.connect(url);
@@ -24,14 +24,14 @@ connectToExistingBackend = function(url) {
   // need to re-check the loginToken or hot code pushes log us out every time
   //
   var token = Accounts._storedLoginToken();
-  if(token)
-  {
-    Meteor.loginWithToken(token, function(err){
+  if (token) {
+    Meteor.loginWithToken(token, function (err) {
       // this is going to throw error if we logged out
-      if(err) console.log(err);else console.log('loginWithToken');
+      if (err) console.log(err); else console.log('loginWithToken');
     });
   }
-};
+}
+
 Meteor.disconnect();
 connectToExistingBackend(window.Meteor_ROOT_URL || '/');
 RemoteAutoupdate(window.Meteor_ROOT_URL || '/');
