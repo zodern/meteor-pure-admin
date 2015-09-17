@@ -5,11 +5,17 @@
     <div class="container-fluid">
       <div class="close">&times;</div>
       <h1 class="big-logo">Menu</h1>
+      <div class="row">
+        <a href="/admin"><div class="col-xs-12">
+          Dashboard
+        </div> </a>
+      </div>
     {{#each row}}
+      {{log}}
       <h3>{{name}}</h3>
-      <div class="row" data-id="{{_id}}">
+      <div class="row">
         {{#each items}}
-        <div class="col-xs-6 col-sm-4" data-id="{{_id}}">{{name}}</div>
+        <a href="{{route}}"><div class="col-xs-6 col-sm-4">{{linkName}} {{log}}</div></a>
         {{/each}}
       </div>
     {{/each}}

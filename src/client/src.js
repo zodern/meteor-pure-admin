@@ -5,7 +5,6 @@ var readyInterval = setInterval(function () {
   if(Meteor.status().connected === true) {
     clearInterval(readyInterval);
     Session.set('ready', true);
-     isAdmin();
   } else {
     // trying again usually works
     connectToExistingBackend(window.Meteor_ROOT_URL || '/');
@@ -20,6 +19,12 @@ function isAdmin () {
   });
 }
 
+Tracker.autorun(function () {
+  if(Meteor.userId()) {
+    isAdmin();
+  }
+});
+
 
 
   // counter starts at 0
@@ -27,7 +32,7 @@ function isAdmin () {
   Template.main.helpers({
     ready: function () {
       if(Session.get('ready') === true) {
-        BlazeLayout.render('mainLayout', {header: 'dashboardHeader', body: 'dashboardContent'})
+        //BlazeLayout.render('mainLayout', {header: 'dashboardHeader', body: 'dashboardContent'})
       }
       return Session.get('ready');
     },

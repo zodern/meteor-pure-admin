@@ -1,9 +1,9 @@
 <head>
+
   <title>src</title>
 </head>
 
 <body>
-{{> main}}
 {{> paInfoButton}}
 </body>
 <template name="main">
@@ -11,6 +11,14 @@
     {{#unless adminUser}}
       {{> login}}
     {{/unless}}
+    {{#if adminUser}}
+      {{> menu}}
+      {{> menuTrigger}}
+      {{> Template.dynamic template=header}}
+      <div class="container content">
+        {{> Template.dynamic template=body}}
+      </div>
+    {{/if}}
   {{/if}}
 </template>
 

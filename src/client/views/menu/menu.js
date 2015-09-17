@@ -1,82 +1,56 @@
 Session.setDefault('showMenu', false);
 Session.setDefault('menuItems', {});
 
-if (typeof PureAdmin === 'undefined') {
-  PureAdmin = {};
-}
-PureAdmin._groups = [];
 
-PureAdmin._addgroup = function (name) {
-  if (typeof PureAdmin._findgroup(name) !== 'undefined') {
-    return;
-  }
-  PureAdmin._groups.push({
-    _id: new Mongo.ObjectID()._str,
-    name: name,
-    items: []
-  });
-};
+//
+//PureAdmin.addMenuItems('test', [{
+//  name: 'fun!',
+//  callback: function () {
+//    console.log('fun!');
+//  },
+//  headerTemplate: 'testHeader',
+//  bodyTemplate: 'testContent'
+//}]);
 
-PureAdmin._findGroupById = function (id) {
-  return _.find(PureAdmin._groups, function (item) {
-    return item._id === id;
-  });
-};
+PureAdmin.addPage('admin/test', 'test group', 'fun2');
+PureAdmin.addPage('http://google.com', 'Google', 'fun3');
 
-PureAdmin._findgroup = function (name) {
-  return _.find(PureAdmin._groups, function (item) {
-    return item.name === name;
-
-  });
-};
-
-PureAdmin._findItemById = function(groupData, itemId) {
-  return _.find(groupData.items, function (item) {
-    return item._id === itemId;
-  });
-};
-
-/**
- * Adds items to the menu in Pure Admin. Is synced
- * @param groupName {String} name of menu group
- * @param items {Object[]} objects of items to add to group
- * @param items.name {String} name of item to place in menu
- * @param items.callback {function} function to call when item is clicked
- * @param items.headerTemplate {String} name of template to render in the header
- * @param items.bodyTemplate {String} name of template to render in body
- */
-PureAdmin.addMenuItems = function (groupName, items) {
-  groupName = groupName.trim();
-  PureAdmin._addgroup(groupName);
-  var group = PureAdmin._findgroup(groupName);
-  items.forEach(function (item) {
-    item._id = new Mongo.ObjectID()._str;
-    group.items.push(item);
-  });
-};
-
-PureAdmin.addMenuItems('test', [{
-  name: 'fun!',
-  callback: function () {
-    console.log('fun!');
-  },
-  headerTemplate: 'testHeader',
-  bodyTemplate: 'testContent'
-}]);
-
-PureAdmin.addMenuItems('', [{
-  name: 'test2',
-  callback: function () {},
-  headerTemplate: 'dashboardHeader',
-  bodyTemplate: 'dashboardContent'
-}]);
+//PureAdmin.addMenuItems('', [{
+//  name: 'test2',
+//  callback: function () {},
+//  headerTemplate: 'dashboardHeader',
+//  bodyTemplate: 'dashboardContent'
+//}]);
 
 Template.menu.helpers({
   showMenu: function () {
     return Session.get('showMenu');
   },
   row: function () {
-    return PureAdmin._groups;
+    var rows = {};
+    PureAdmin._pages.forEach(function (item) {
+      if(item.menuGroup in rows) {
+        rows[item.menuGroup].items.push(item);
+      } else {
+        rows[item.menuGroup] = {
+          name: item.menuGroup,
+          items: [item]
+        }
+      }
+    });
+
+    //convert into array
+    var rowsArray = [];
+    for (var key in rows) {
+      if (rows.hasOwnProperty(key)) {
+        rowsArray.push(rows[key]);
+      }
+    }
+    console.log(rowsArray);
+    return rowsArray;
+  },
+  log: function () {
+    console.log(this);
   }
 });
 

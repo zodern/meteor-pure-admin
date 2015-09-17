@@ -1,6 +1,9 @@
 function configureAdminMongo () {
   var AdminCollection = new Meteor.Collection('_PureAdmin-Admins');
   PureAdmin.configure._admin = function(userId) {
+    if(userId === null) {
+      return false;
+    }
     if(AdminCollection.find().count() === 0) {
       AdminCollection.insert({user: userId});
       return true;
