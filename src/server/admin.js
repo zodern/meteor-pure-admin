@@ -7,8 +7,7 @@ function configureAdminMongo () {
     if(AdminCollection.find().count() === 0) {
       AdminCollection.insert({user: userId});
       return true;
-    }
-    if( typeof AdminCollection.findOne({user: userId}) !== 'undefined' ) {
+    } else if( typeof AdminCollection.findOne({user: userId}) !== 'undefined' ) {
       return true;
     }
     return false;

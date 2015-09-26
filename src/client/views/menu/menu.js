@@ -12,8 +12,6 @@ Session.setDefault('menuItems', {});
 //  bodyTemplate: 'testContent'
 //}]);
 
-PureAdmin.addPage('admin/test', 'test group', 'fun2');
-PureAdmin.addPage('http://google.com', 'Google', 'fun3');
 
 //PureAdmin.addMenuItems('', [{
 //  name: 'test2',
@@ -58,18 +56,19 @@ Template.menu.events({
   'click .close': function () {
     Session.set('showMenu', false);
   },
-  'click .col-sm-4': function (e, t) {
-    var item_id = t.$(e.target).data('id');
-    var row_id = t.$(e.target).parent('.row').data('id');
-    console.log(item_id);
-    console.log(row_id);
-    var group = PureAdmin._findGroupById(row_id);
-    console.log(PureAdmin._findGroupById(row_id));
-    var item = PureAdmin._findItemById(group, item_id);
-    item.callback();
-    if(item.headerTemplate && item.bodyTemplate) {
-      BlazeLayout.render('mainLayout', {header: item.headerTemplate, body: item.bodyTemplate});
-    }
+  'click .menu-item': function (e, t) {
+    //var item_id = t.$(e.target).data('id');
+    //var row_id = t.$(e.target).parent('.row').data('id');
+    //
+    //console.log(item_id);
+    //console.log(row_id);
+    //var group = PureAdmin._findGroupById(row_id);
+    //console.log(PureAdmin._findGroupById(row_id));
+    //var item = PureAdmin._findItemById(group, item_id);
+    //item.callback();
+    //if(item.headerTemplate && item.bodyTemplate) {
+    //  BlazeLayout.render('mainLayout', {header: item.headerTemplate, body: item.bodyTemplate});
+    //}
     Session.set('showMenu', false);
   }
 });

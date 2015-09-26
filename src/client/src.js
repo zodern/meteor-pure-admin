@@ -1,8 +1,30 @@
 Session.setDefault('ready', false);
 Session.setDefault('isAdmin', false);
+var loadedFiles = false;
+
+function loadFiles() {
+  if(loadedFiles === true) {
+    return;
+  }
+  loadedFiles = true;
+  Meteor.call('_pa.files', function (e, files) {
+    if(e) {
+      return console.log(e);
+    }
+    console.log(files);
+    Inject(files);
+  });
+  Meteor.call('_pa.templates', function (e, files){
+    if(e) {
+      return console.log(e);
+    }
+    Inject.loadTemplates(files);
+  })
+}
 
 var readyInterval = setInterval(function () {
   if(Meteor.status().connected === true) {
+    loadFiles();
     clearInterval(readyInterval);
     Session.set('ready', true);
 
@@ -36,6 +58,6 @@ Template.main.helpers({
     return Session.get('ready');
   },
   adminUser: function () {
-    return Session.get('isAdmin') && Meteor.user();
+    return Session.get('isAdmin') && Meteor.userId();
   }
 });
