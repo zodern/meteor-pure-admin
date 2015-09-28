@@ -2,11 +2,11 @@ PureAdmin.addPage('{adminRoute}/test', 'test', 'Test Page');
 
 PureAdmin.adminRoutes.route('/test', {
   action: function () {
-    BlazeLayout.render('main', {header: 'testHeader', body: 'testBody'});
+    BlazeLayout.render('main', {header: 'exampleHeader', body: 'exampleBody'});
   }
 });
 
-Template.testBody.helpers({
+Template.exampleBody.helpers({
   'testHelper': function () {
     return 'yes'
   }
