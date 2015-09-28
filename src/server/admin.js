@@ -1,6 +1,6 @@
 function configureAdminMongo () {
   var AdminCollection = new Meteor.Collection('_PureAdmin-Admins');
-  PureAdmin.configure._admin = function(userId) {
+  PureAdmin.isAdmin = function(userId) {
     if(userId === null) {
       return false;
     }
@@ -16,7 +16,7 @@ function configureAdminMongo () {
 
 Meteor.startup(function () {
   // check if there is an admin function configured
-  if(typeof PureAdmin.configure._admin === "function") {
+  if(typeof PureAdmin.isAdmin === "function") {
     return;
   }
   configureAdminMongo();

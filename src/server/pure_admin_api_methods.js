@@ -1,7 +1,7 @@
 Meteor.methods({
   '_pa.isAdmin': function (user) {
     console.log(this.userId);
-    return PureAdmin.configure._admin(this.userId);
+    return PureAdmin.isAdmin(this.userId);
   },
   '_pa.files': function () {
     return PureAdmin._files;
