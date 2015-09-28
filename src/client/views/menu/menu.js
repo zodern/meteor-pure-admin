@@ -1,24 +1,4 @@
 Session.setDefault('showMenu', false);
-Session.setDefault('menuItems', {});
-
-
-//
-//PureAdmin.addMenuItems('test', [{
-//  name: 'fun!',
-//  callback: function () {
-//    console.log('fun!');
-//  },
-//  headerTemplate: 'testHeader',
-//  bodyTemplate: 'testContent'
-//}]);
-
-
-//PureAdmin.addMenuItems('', [{
-//  name: 'test2',
-//  callback: function () {},
-//  headerTemplate: 'dashboardHeader',
-//  bodyTemplate: 'dashboardContent'
-//}]);
 
 Template.menu.helpers({
   showMenu: function () {
@@ -56,19 +36,7 @@ Template.menu.events({
   'click .close': function () {
     Session.set('showMenu', false);
   },
-  'click .menu-item': function (e, t) {
-    //var item_id = t.$(e.target).data('id');
-    //var row_id = t.$(e.target).parent('.row').data('id');
-    //
-    //console.log(item_id);
-    //console.log(row_id);
-    //var group = PureAdmin._findGroupById(row_id);
-    //console.log(PureAdmin._findGroupById(row_id));
-    //var item = PureAdmin._findItemById(group, item_id);
-    //item.callback();
-    //if(item.headerTemplate && item.bodyTemplate) {
-    //  BlazeLayout.render('mainLayout', {header: item.headerTemplate, body: item.bodyTemplate});
-    //}
+  'click .menu-item': function () {
     Session.set('showMenu', false);
   }
 });
