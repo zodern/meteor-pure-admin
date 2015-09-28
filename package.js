@@ -11,9 +11,8 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.1.0.3');
-  api.use('meteorhacks:picker', 'server');
-  api.use('meteorhacks:ssr', 'server');
+  api.versionsFrom('1.2.0.1');
+  api.use('meteorhacks:picker@1.0.3', 'server');
   api.addFiles('pureadmin.js', 'server');
   api.addAssets(['output/pure-admin.css', 'output/pure-admin.js'],'client');
   api.addAssets(['index.html'], 'server');
@@ -22,6 +21,5 @@ Package.onUse(function(api) {
 
 Package.onTest(function(api) {
   api.use('tinytest');
-  api.use('pureadmin');
   api.addFiles('pureadmin-tests.js');
 });
