@@ -19,6 +19,5 @@ function chooseFile (list, type) {
 Picker.route('/admin', function(params, req, res) {
   var html = Assets.getText('index.html');
   html = html.replace('//------------replaced-with-root-url-------------------', 'window.Meteor_ROOT_URL = "' + __meteor_runtime_config__.ROOT_URL + '"');
-  console.log(html);
   res.end(html);
 });

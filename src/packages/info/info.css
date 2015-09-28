@@ -1,0 +1,18 @@
+.paInfoCircle {
+    width: 25px;
+    height: 25px;
+    background-color: #287ECA;
+    border-radius: 50%;
+    border: 5px solid white;
+    cursor: pointer;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+.paInfo {
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+}

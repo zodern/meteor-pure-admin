@@ -1,21 +1,30 @@
 <head>
+
   <title>src</title>
 </head>
 
 <body>
-
-  <h1>Pure Admin</h1>
-  {{> main}}
+{{> paInfoButton}}
 </body>
 <template name="main">
   {{#if ready}}
-    {{> loginButtons}}
-    <br>
-    {{> info}}
+    {{#unless adminUser}}
+      {{> login}}
+    {{/unless}}
+    {{#if adminUser}}
+      {{> menu}}
+      {{> menuTrigger}}
+      {{> Template.dynamic template=header}}
+      <div class="container content">
+        {{> Template.dynamic template=body}}
+      </div>
+    {{/if}}
   {{/if}}
 </template>
-<template name="info">
-  version: {{version}} <br>
-  connected: {{connection}} <br>
-  user email: {{email}}
+
+<template name="login">
+  <div class="page page-top">
+  <h1 class="big-logo">Pure Admin</h1>
+
+  <p class="center">This is only for admins. If you are an admin, please sign in from the main app and return to here.</p></div>
 </template>

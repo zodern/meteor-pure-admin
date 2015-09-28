@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'pureadmin',
+  name: 'info',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -12,16 +12,14 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
-  api.use('meteorhacks:picker', 'server');
-  api.use('meteorhacks:ssr', 'server');
-  api.addFiles('pureadmin.js', 'server');
-  api.addAssets(['output/pure-admin.css', 'output/pure-admin.js'],'client');
-  api.addAssets(['index.html'], 'server');
-  api.addFiles(['src/packages/lib/lib.js','src/server/admin.js','src/server/pure_admin_api_methods.js'], 'server');
+  api.use('templating', 'client');
+  api.use('handlebars', 'client');
+  api.use('underscore', 'client');
+  api.addFiles([ 'info.css', 'info.html', 'info.js'], 'client');
 });
 
 Package.onTest(function(api) {
   api.use('tinytest');
-  api.use('pureadmin');
-  api.addFiles('pureadmin-tests.js');
+  api.use('info');
+  api.addFiles('info-tests.js');
 });

@@ -24,13 +24,18 @@ connectToExistingBackend = function(url) {
   // need to re-check the loginToken or hot code pushes log us out every time
   //
   var token = Accounts._storedLoginToken();
-  if(token)
-  {
-    Meteor.loginWithToken(token, function(err){
+  if (token) {
+    Meteor.loginWithToken(token, function (err) {
       // this is going to throw error if we logged out
-      if(err) console.log(err);else console.log('loginWithToken');
+      if (err) console.log(err); else console.log('loginWithToken');
     });
   }
 };
+
 Meteor.disconnect();
 connectToExistingBackend(window.Meteor_ROOT_URL || '/');
+
+// we only want this when debugging (the root url is not defined). Otherwise it replaces our css with the app's
+if(typeof window.Meteor_ROOT_URL === "undefined"){
+  RemoteAutoupdate(window.Meteor_ROOT_URL);
+}

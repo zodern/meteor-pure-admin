@@ -11,8 +11,9 @@ gulp.task('build-client', function() {
   var fileList = fs.readdirSync(__dirname + '/output');
   console.log(fileList);
   fileList.forEach(function (item) {
+    var excluded = ['test.js'];
     var ext = path.extname(item);
-    if(ext === 'map') {
+    if(ext === 'map' || excluded.indexOf(item) !== -1) {
       return;
     }
     var base = __dirname + '/output/';

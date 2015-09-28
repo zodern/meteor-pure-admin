@@ -1,41 +1,63 @@
 Session.setDefault('ready', false);
+Session.setDefault('isAdmin', false);
+var loadedFiles = false;
+
+function loadFiles() {
+  if(loadedFiles === true) {
+    return;
+  }
+  loadedFiles = true;
+  Meteor.call('_pa.files', function (e, files) {
+    if(e) {
+      return console.log(e);
+    }
+    console.log(files);
+    Inject(files);
+  });
+  Meteor.call('_pa.templates', function (e, files){
+    if(e) {
+      return console.log(e);
+    }
+    Inject.loadTemplates(files);
+  })
+}
+
 var readyInterval = setInterval(function () {
   if(Meteor.status().connected === true) {
+    loadFiles();
     clearInterval(readyInterval);
     Session.set('ready', true);
+
+    // needs to run after we are connected
+    Tracker.autorun(function () {
+      if(Meteor.userId()) {
+        console.log('ran');
+        isAdmin();
+      }
+    });
+
   } else {
+    // trying again usually works
+    connectToExistingBackend(window.Meteor_ROOT_URL || '/');
     console.log('not ready');
   }
 }, 1000);
 
-
-
-  // counter starts at 0
-  Session.setDefault('counter', 0);
-  Template.main.helpers({
-    ready: function () {
-      return Session.get('ready');
-    }
+function isAdmin() {
+  Meteor.call('_pa.isAdmin', function (e, d) {
+    console.log(e, d);
+    Session.set('isAdmin', d);
   });
-  Template.info.helpers({
+}
 
-    counter: function () {
-      return Session.get('counter');
-    },
-    'version': function () {
-      return '1';
-    },
-    'connection': function () {
-      return Meteor.status().connected + ', ' + Meteor.status().status;
-    },
-    email: function () {
-      return Meteor.user().emails[0].address;
+Template.main.helpers({
+  ready: function () {
+    if(Session.get('ready') === true) {
+      //BlazeLayout.render('mainLayout', {header: 'dashboardHeader', body: 'dashboardContent'})
     }
-  });
-
-  Template.info.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
-    }
-  });
+    return Session.get('ready');
+  },
+  adminUser: function () {
+    return Session.get('isAdmin') && Meteor.userId();
+  }
+});

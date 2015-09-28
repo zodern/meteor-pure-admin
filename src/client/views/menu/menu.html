@@ -1,0 +1,29 @@
+<template name="menu">
+  {{#if showMenu}}
+
+    <div id="menu" class="animated fadeIn slow">
+    <div class="container-fluid">
+      {{! Meteor compiled the &times; to Ã—}}
+      <button class="close">x</button>
+      <h1 class="big-logo">Menu</h1>
+      <div class="row">
+        <a href="/admin"><div class="col-xs-12 menu-item">
+          Dashboard
+        </div> </a>
+      </div>
+    {{#each row}}
+      <h3>{{name}}</h3>
+      <div class="row">
+        {{#each items}}
+        <a href="{{route}}"><div class="col-xs-6 col-sm-4 menu-item">{{linkName}} {{log}}</div></a>
+        {{/each}}
+      </div>
+    {{/each}}
+    </div>
+    </div>
+
+  {{/if}}
+</template>
+<template name="menuTrigger">
+  <span class="menu-trigger glyphicon glyphicon-menu-hamburger"></span>
+</template>

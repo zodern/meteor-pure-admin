@@ -1,0 +1,3 @@
+PureAdmin = {
+  configure: {}
+};

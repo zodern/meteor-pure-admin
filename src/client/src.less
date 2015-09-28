@@ -1,0 +1,52 @@
+/* CSS declarations go here */
+@import url(https://fonts.googleapis.com/css?family=Raleway+Dots|Raleway:400,200,500,300);
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css";
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: #424D54;
+    color: #c1c1c1;
+}
+
+.big-logo {
+    font-size: 100px;
+    color: #8A8A8A;
+    font-weight: 300;
+    width: 100%;
+    text-align: center;
+    font-family: 'Raleway Dots';
+}
+
+.center {
+    text-align: center;
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #424D54;
+    z-index: 400;
+  h1 {
+      font-size: 20px;
+      margin: 1px 0;
+      text-align: center;
+  }
+
+}
+.content {
+  margin-top: 50px;
+}
+
+.page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #424D54;
+  &.page-top {
+    z-index: 1000;
+  }
+}
