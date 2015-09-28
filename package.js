@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'zodern:pureadmin',
+  name: 'zodern:pure-admin',
   version: '0.1.0',
   // Brief, one-line summary of the package.
   summary: 'Isolated, customizable admin panel for Meteor',
