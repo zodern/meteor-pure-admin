@@ -90,6 +90,11 @@ PureAdmin.addPage('analytics.google.com', 'Analytics', 'Google Analytics');
 
 The route can be to a page in the admin panel, an external page, or a page in your app. If it is a page in the admin panel, prefix it with `{adminRoute}`. It will be replaced with the route prefix for the admin routes.
 
+
+## How it works
+
+The client is part of a meteor app in /src. It is generated using `gulp biuld-client`. The generated files are added as a client asset. The server route sends an html file which loads the generated js and css.
+
 ## TODO
 
 - [ ] Add items to dashboard
