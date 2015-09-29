@@ -17,6 +17,8 @@ Package.onUse(function(api) {
   api.addAssets(['output/pure-admin.css', 'output/pure-admin.js'],'client');
   api.addAssets(['index.html'], 'server');
   api.addFiles(['src/packages/lib/lib.js','src/server/admin.js','src/server/pure_admin_api_methods.js'], 'server');
+  api.addFiles(['src/server/pure_admin_api.js'], 'server');
+  api.export('PureAdmin');
 });
 
 Package.onTest(function(api) {

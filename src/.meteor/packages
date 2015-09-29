@@ -32,3 +32,4 @@ check
 ecmascript
 numtel:template-from-string
 reactive-var
+markdown
