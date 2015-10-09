@@ -1,5 +1,5 @@
 function configureAdminMongo () {
-  var AdminCollection = new Meteor.Collection('_PureAdmin-Admins');
+  var AdminCollection = new Mongo.Collection('_PureAdmin-Admins');
   PureAdmin.isAdmin = function(userId) {
     if(userId === null) {
       return false;
