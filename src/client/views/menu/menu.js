@@ -24,11 +24,11 @@ Template.menu.helpers({
         rowsArray.push(rows[key]);
       }
     }
-    console.log(rowsArray);
+    //console.log(rowsArray);
     return rowsArray;
   },
   log: function () {
-    console.log(this);
+    //console.log(this);
   }
 });
 

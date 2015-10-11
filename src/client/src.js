@@ -11,7 +11,7 @@ function loadFiles() {
     if(e) {
       return console.log(e);
     }
-    console.log(files);
+    //console.log(files);
     Inject(files);
   });
   Meteor.call('_pa.templates', function (e, files){

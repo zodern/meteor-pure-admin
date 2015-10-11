@@ -74,7 +74,7 @@ Inject.loadTemplates = function (templates) {
  * Once all of the templates are loaded it calls evalJs.
  */
 function finishedTemplate() {
-  console.log('finished');
+  //console.log('finished');
   finishedTemplates += 1;
   if(finishedTemplates === totalTemplates) {
     // we can load js now that the templates are defined
@@ -93,8 +93,8 @@ function getAndCompileTemplate(file, templateName) {
     url: file,
     cache: false
   }).done(function (html) {
-    console.log(html);
-    console.log(templateName);
+    //console.log(html);
+    //console.log(templateName);
     Template[templateName] = Template.fromString(html);
     finishedTemplate();
   });
