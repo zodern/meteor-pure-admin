@@ -18,12 +18,20 @@ function chooseFile (list, type) {
   });
 }
 
+var adminRoute = Picker.filter(function (req) {
+  console.log(/^\/admin/.test(req.url), req.url);
+  return /^\/admin/.test(req.url);
+});
+
 function handleRoute(params, req, res) {
+  console.log('handling route');
+  console.log(params);
   var html = Assets.getText('index.html');
   html = html.replace('//------------replaced-with-root-url-------------------', 'window.Meteor_ROOT_URL = "' + __meteor_runtime_config__.ROOT_URL + '"');
   res.end(html);
 }
 
-Picker.route('/admin', handleRoute);
+adminRoute.route('/admin', handleRoute);
 // client side routes, when reloaded, would load the app
-Picker.route('/admin/*', handleRoute);
+adminRoute.route('/*', handleRoute);
+Picker.route(/^\/admin/, handleRoute);
