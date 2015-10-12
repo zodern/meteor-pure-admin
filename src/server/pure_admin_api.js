@@ -6,10 +6,10 @@ PureAdmin.addFiles = function (files) {
   }
   if(files instanceof Array) {
     files.forEach(function (item) {
-      console.log(item);
+      //console.log(item);
       PureAdmin._files.push(item);
     });
-    console.log(PureAdmin._files);
+    //console.log(PureAdmin._files);
   }
 };
 
