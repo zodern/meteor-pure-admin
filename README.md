@@ -6,7 +6,7 @@ When you go to myapp.com/admin Pure Admin uses a server route to load it's clien
 
 ## Customizable
 
-Pure Admin doesn't do any admin things on it's own. Instead it makes it possible to create an isolated admin panel. Everything is added by packages or using the API. If you don't use MongoDB, for example, you can add a package to view data in the database you are using and override PureAdmin.isAdmin function.
+Pure Admin doesn't do any admin things on it's own. Instead it makes it possible to create an isolated admin panel. Everything is added by packages or using the API. If you don't use MongoDB, for example, you can add a package to view data in the database you are using and override the PureAdmin.isAdmin function.
 
 # Use
 
@@ -15,10 +15,13 @@ Pure Admin doesn't do any admin things on it's own. Instead it makes it possible
 3. Go to localhost:3000/admin
 
 ## Addon packages
-There currently are no packages that extend Pure Admin. If you have made one, please create a pull request to add it here or create an issue.
+Pure Admin on it's own doesn't do much. You can add packages to extend the functionality.
 
-Needed Add on packages
-- [ ] Manage data in MongoDB
+**Available Packages**
+- **mongo**: Manage data in your MongoDB
+
+Ideas for packages
+- [x] Manage data in MongoDB
 - [ ] Manage data in SQL databases
 - [ ] Manage and view history of cron jobs
 - [ ] Manage users
@@ -89,6 +92,10 @@ PureAdmin.addPage('analytics.google.com', 'Analytics', 'Google Analytics');
 ```
 
 The route can be to a page in the admin panel, an external page, or a page in your app. If it is a page in the admin panel, prefix it with `{adminRoute}`. It will be replaced with the route prefix for the admin routes.
+
+### Packages
+
+On the server, you can use any package you want. But on the client, you can't. The client is prebuilt before being published. If you want to use a package that is not added, create an issue or pull request. You can view the packages bundled with the client [here](https://github.com/zodern/meteor-pure-admin/blob/master/src/.meteor/packages). You can also load a file from a cdn by using PureAdmin.addFiles('url'), though if multiple packages load different versions of the same library that way, there could be problems. 
 
 
 ## How it works
