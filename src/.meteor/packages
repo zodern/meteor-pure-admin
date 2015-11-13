@@ -33,3 +33,5 @@ ecmascript
 numtel:template-from-string
 reactive-var
 markdown
+yasinuslu:json-view
+babrahams:editable-json

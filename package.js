@@ -14,8 +14,15 @@ Package.onUse(function(api) {
   api.versionsFrom('1.2.0.1');
   api.use('meteorhacks:picker@1.0.3', 'server');
   api.addFiles('pureadmin.js', 'server');
-  api.addAssets(['output/pure-admin.css', 'output/pure-admin.js'],'client');
-  api.addAssets(['index.html'], 'server');
+  var clientAssets = ['output/pure-admin.css', 'output/pure-admin.js'];
+  var serverAssets = ['index.html'];
+  if(api.addAssets) {
+    api.addAssets(clientAssets, 'client');
+    api.addAssets(serverAssets, 'server');
+  } else {
+    api.addFiles(clientAssets, 'client', {isAsset: true});
+    api.addFiles(serverAssets, 'server', {isAsset: true});
+  }
   api.addFiles(['src/packages/lib/lib.js','src/server/admin.js','src/server/pure_admin_api_methods.js'], 'server');
   api.addFiles(['src/server/pure_admin_api.js'], 'server');
   api.export('PureAdmin');
