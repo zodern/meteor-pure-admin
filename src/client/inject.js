@@ -27,11 +27,12 @@ Inject.isLoaded = isLoaded;
  * Takes each script stored in scripts and runs in.
  * It uses new Function to run it in global scope.
  * TODO: wrap js similar to how meteor wraps files
+ * TODO: try to ensure load order while handling errors loading and slow connections
  */
 function evalJs() {
   scripts.forEach(function (js) {
-    var afunction = new Function(js);
-    afunction();
+    var aFunction = new Function(js);
+    aFunction();
   });
 }
 
@@ -98,4 +99,16 @@ function getAndCompileTemplate(file, templateName) {
     Template[templateName] = Template.fromString(html);
     finishedTemplate();
   });
+}
+
+/**
+ * Loads css
+ * @param file
+ */
+Inject.loadCss = function(file) {
+  var el =document.createElement("link");
+  el.setAttribute("rel", "stylesheet");
+  el.setAttribute("type", "text/css");
+  el.setAttribute("href", file);
+  document.getElementsByTagName("head")[0].appendChild(el)
 }

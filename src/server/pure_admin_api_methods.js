@@ -8,5 +8,8 @@ Meteor.methods({
   },
   '_pa.templates': function () {
     return PureAdmin._templates;
+  },
+  '_pa.styleSheets': function () {
+    return PureAdmin._styleSheets;
   }
 });

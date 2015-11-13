@@ -19,6 +19,10 @@ function loadFiles() {
       return console.log(e);
     }
     Inject.loadTemplates(files);
+  });
+
+  Meteor.call('_pa.styleSheets', function(e, files) {
+    Inject.loadCss(files);
   })
 }
 
