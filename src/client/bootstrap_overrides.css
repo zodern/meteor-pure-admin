@@ -5,3 +5,12 @@
     font-weight: normal;
     font-size: 30px;
 }
+
+pre {
+    background-color: transparent;
+    color: lightGrey;
+    border: 0px;
+    border-radius: 0px;
+    font-family: monospace;
+    font-size: 14px;
+}
