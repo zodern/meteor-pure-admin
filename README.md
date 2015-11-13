@@ -18,7 +18,7 @@ Pure Admin doesn't do any admin things on it's own. Instead it makes it possible
 Pure Admin on it's own doesn't do much. You can add packages to extend the functionality.
 
 **Available Packages**
-- **mongo**: Manage data in your MongoDB
+- **[mongo](https://atmospherejs.com/zodern/pureadmin-mongo)**: Manage data in your MongoDB
 
 Ideas for packages
 - [x] Manage data in MongoDB
