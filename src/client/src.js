@@ -22,8 +22,10 @@ function loadFiles() {
   });
 
   Meteor.call('_pa.styleSheets', function(e, files) {
-    Inject.loadCss(files);
-  })
+    files.forEach(function(file) {
+      Inject.loadCss(file);
+    });
+  });
 }
 
 var readyInterval = setInterval(function () {
