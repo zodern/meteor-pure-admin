@@ -5,10 +5,10 @@ var path = require('path');
 
 gulp.task('build-client', function() {
   var cwd = __dirname + '/src';
-  var result = child.execSync(__dirname + '/node_modules/meteor-build-client/main.js ../output ', {cwd: cwd});
+  var result = child.execSync('meteor-build-client ../.output ', {cwd: cwd});
   console.log(result.toString('binary'));
   // rename files
-  var fileList = fs.readdirSync(__dirname + '/output');
+  var fileList = fs.readdirSync(__dirname + '/.output');
   console.log(fileList);
   fileList.forEach(function (item) {
     var excluded = ['example.js'];
@@ -16,7 +16,7 @@ gulp.task('build-client', function() {
     if(ext === 'map' || excluded.indexOf(item) !== -1) {
       return;
     }
-    var base = __dirname + '/output/';
+    var base = __dirname + '/.output/';
     fs.renameSync(base + item, base + 'pure-admin' + ext );
   });
 });

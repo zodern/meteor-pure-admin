@@ -14,7 +14,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.2.0.1');
   api.use('meteorhacks:picker@1.0.3', 'server');
   api.addFiles('pureadmin.js', 'server');
-  var clientAssets = ['output/pure-admin.css', 'output/pure-admin.js'];
+  var clientAssets = ['.output/pure-admin.css', '.output/pure-admin.js'];
   var serverAssets = ['index.html'];
   if(api.addAssets) {
     api.addAssets(clientAssets, 'client');

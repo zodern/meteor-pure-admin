@@ -100,7 +100,7 @@ On the server, you can use any package you want. But on the client, you can't. T
 
 ## How it works
 
-The client is part of a meteor app in /src. It is generated using `gulp biuld-client`. The generated files are added as a client asset. The server route sends an html file which loads the generated js and css.
+The client is part of a meteor app in /src. It is generated using `gulp build-client`. The generated files are added as a client asset. The server route sends an html file which loads the generated js and css.
 
 ## TODO
 

@@ -2,7 +2,10 @@
   "name": "src",
   "version": "0.0.1",
   "dependencies": {
-    "gulpe": "*",
+    "gulp": "*",
     "meteor-build-client": "^0.1.6"
+  },
+  "scripts": {
+    "build": "gulp build-client"
   }
 }
