@@ -1,3 +1,5 @@
+export const PureAdmin = {};
+
 function configureAdminMongo () {
   var AdminCollection = new Mongo.Collection('_PureAdmin-Admins');
   PureAdmin.isAdmin = function(userId) {

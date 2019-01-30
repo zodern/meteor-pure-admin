@@ -1,31 +1,19 @@
 Package.describe({
   name: 'zodern:pure-admin',
-  version: '0.4.0',
-  // Brief, one-line summary of the package.
+  version: '0.5.0',
   summary: 'Isolated, customizable admin panel for Meteor',
-  // URL to the Git repository containing the source code for this package.
   git: 'https://github.com/zodern/meteor-pure-admin.git',
-  // By default, Meteor will default to using README.md for documentation.
-  // To avoid submitting documentation, set this field to null.
   documentation: 'README.md'
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.2.0.1');
+  api.versionsFrom('1.8.0.2');
+  api.use(['ecmascript', 'dynamic-import']);
   api.use('meteorhacks:picker@1.0.3', 'server');
-  api.addFiles('pureadmin.js', 'server');
-  var clientAssets = ['.output/pure-admin.css', '.output/pure-admin.js'];
-  var serverAssets = ['index.html'];
-  if(api.addAssets) {
-    api.addAssets(clientAssets, 'client');
-    api.addAssets(serverAssets, 'server');
-  } else {
-    api.addFiles(clientAssets, 'client', {isAsset: true});
-    api.addFiles(serverAssets, 'server', {isAsset: true});
-  }
-  api.addFiles(['src/packages/lib/lib.js','src/server/admin.js','src/server/pure_admin_api_methods.js'], 'server');
-  api.addFiles(['src/server/pure_admin_api.js'], 'server');
-  api.export('PureAdmin');
+  api.use('svelte:compiler@2.15.3_1');
+
+  api.mainModule('./src/main.js', 'client');
+  api.mainModule('./src/server.js', 'server');
 });
 
 Package.onTest(function(api) {
