@@ -2,29 +2,34 @@
 An isolated, customizable admin panel for Meteor
 
 ## Isolated
-When you go to myapp.com/admin Pure Admin uses a server route to load it's client. This way Pure Admin's files for the client will not interfere with your app. Also, Pure Admin's client is not included in your app's bundle so users will not have to wait for the admin to load along with the rest of the app.
+Pure Admin was designed to not interfere with your app.
+- Uses Shadow DOM to prevent your app's or Pure Admin's styles or dom from interfering with each other
+- Does not use a router or other third party packages
+- UI components are built with Svelte, which turns the components into vinilla js during build time
+- Uses dynamic imports to reduce impact on bundle size.
 
 ## Customizable
 
-Pure Admin doesn't do any admin things on it's own. Instead it makes it possible to create an isolated admin panel. Everything is added by packages or using the API. If you don't use MongoDB, for example, you can add a package to view data in the database you are using and override the PureAdmin.isAdmin function.
+On its own, Pure Admin doesn't do much. It mostly creates the UI and provides some api's for other packages or your app to build on top of. It makes very few assumptions about how your app works. For example, overriding the `PureAdmin.isAdmin` function removes all dependencies on Mongo.
 
 # Use
 
 1. `meteor add zodern:pure-admin`
-2. Add packages for Pure Admin to create a custom admin panel.
-3. Go to localhost:3000/admin
+2. Add packages for Pure Admin to create a custom admin panel
+3. Add `PureAdmin.show()` in your client code, for example in a route handler for `/admin`
 
 ## Addon packages
+
 Pure Admin on it's own doesn't do much. You can add packages to extend the functionality.
 
 **Available Packages**
-- **[mongo](https://atmospherejs.com/zodern/pureadmin-mongo)**: Manage data in your MongoDB
+- **[mongo](https://atmospherejs.com/zodern/pureadmin-mongo)**: Manage data in your Mongo Database
 
 Ideas for packages
 - [x] Manage data in MongoDB
-- [ ] Manage data in SQL databases
 - [ ] Manage and view history of cron jobs
 - [ ] Manage users
+- [ ] Useful and easily extendable dashboard page
 
 ## API
 
@@ -39,75 +44,59 @@ PureAdmin.isAdmin = function(userId) {
   return Meteor.users.findOne({_id: userId}).isAdmin || false
 }
 ```
-If you do not set this, we will set it to the default. In the default, a collection is created called `_PureAdmin-Admins`. The first user to visit myapp.com/admin is made an admin. You can add admins by adding documents to _PureAdmin-admins. The document format is `{user: userIdOfAdmin}`.
 
-__PureAdmin.addFiles__
-
-```
-PureAdmin.addFiles('myFileInPublicFolder.js');
-PureAdmin.addFiles(['file1.js', 'file2.js', 'folder/file.js']);
-```
-
-Adds files to load in Pure Admin's client. The path is relative to your public folder. Since it is a prebuilt client, this is how your app or packages can extend Pure Admin. Currently, only js files can be added this way. We will add support for css files soon. The load order of files is not guaranteed. JS will be loaded in parallel, but will be executed after templates are loaded.
-
-__PureAdmin.addTemplate__
-
-```
-PureAdmin.addTemplate('templateName', 'pathToTemplateInPublicFolder.html');
-PureAdmin.addTemplate('analytics.Dashboard', 'admin_templates/analytics/dashbaord.html');
-```
-In admin_templates/analytics/dashboard.html:
-```
-{{! Exclude the <template> tags}}
-<h1>Analytics</h1>
-```
-Adds templates to be loaded. Only one template can be in each html file. Do not have the `<template>` tag in the html file. Templates are loaded in parrallel with js files, but js files are evaluated after the templates are loaded.
+If you do not set this, it defaults to:
+- creating a collection called `_PureAdmin-Admins`
+- The first userId passed to `PureAdmin.isAdmin` is made an admin
+- Add admins by inserting documents in _PureAdmin-admins with the format `{user: "userIdOfAdmin"}`.
 
 ### Client
 
-#### Routing
-We use Flow Router and Blaze Layout. You need to define your own routes.
+__`PureAdmin.addPage({name: 'pageName', render(utils, props, contentEl) => {}, title(props) => 'title'})`__
 
-```
-PureAdmin.routePrefix
-```
-Currently returns '/admin'. Will be configurable in the future.
+Adds a page. When it is shown, `render` is passed:
+- `utils` which is an object with:
+  - `renderSvelte(svelteComponent)` Renders a svelte component, passing `props` as data, and listening to the `goTo` event
+- props
+- contentEl - the container element any page content should go into
 
-```
-// route path is appended to myapp.com/admin
-PureAdmin.adminRoutes.route('/adminRoute', {
-  action: function () {
-    BlazeLayout.render('main', {header: 'myHeaderTemplate', body: 'myBodyTemplate'});
-  }
-  });
-```
+To override the default blank dashboard, add a page named `Dashboard`.
 
-#### Menu
-You can use the menu api to add groups or links to the menu.
+__`PureAdmin.addMenuItem({ name: 'string', section: 'section', page: 'pageName' })`__
+__`PureAdmin.addMenuItem({ name: 'string', section: 'section', page: 'pageName', pageProps: {}, url: 'https://website.com'})`__
+__`PureAdmin.addMenuItem({ name: 'string', section: 'section', url: 'https://website.com'})`__
 
-```
-PureAdmin.addPage('route', 'menuGroup', 'displayName');
-PureAdmin.addPage('{adminRoute}/analytics', 'Analytics', 'Overview');
-PureAdmin.addPage('analytics.google.com', 'Analytics', 'Google Analytics');
-```
+Adds a menu item to the side bar. If `page` is provided, it is shown when selected with `pageProps`. Otherwise, the url in `url` is opened in a new tab.
 
-The route can be to a page in the admin panel, an external page, or a page in your app. If it is a page in the admin panel, prefix it with `{adminRoute}`. It will be replaced with the route prefix for the admin routes.
+Pages are grouped by `section`. Pages without a section are shown together at the top of the list.
 
-### Packages
+__`PureAdmin.goTo('pageName');`__
 
-On the server, you can use any package you want. But on the client, you can't. The client is prebuilt before being published. If you want to use a package that is not added, create an issue or pull request. You can view the packages bundled with the client [here](https://github.com/zodern/meteor-pure-admin/blob/master/src/.meteor/packages). You can also load a file from a cdn by using PureAdmin.addFiles('url'), though if multiple packages load different versions of the same library that way, there could be problems. 
+__`PureAdmin.goTo({page: 'pageName', props: {}});`__
 
+Shows the page.
 
-## How it works
+__`PureAdmin.addCss('css string')`__
 
-The client is part of a meteor app in /src. It is generated using `gulp build-client`. The generated files are added as a client asset. The server route sends an html file which loads the generated js and css.
+Due to the use of shadow DOM, css outside of the the admin panel is not inherited by it. CSS added with `addCss` is put inside of a `<styled>` element in the shadow dom. Another option is to use inline styles.
+
+__`PureAdmin.onInit(function () {})`__
+
+These functions are run when the admin panel is opened. They can be used to dynamically import the files that configure Pure Admin.
+
+__`PureAdmin.show()`__
+
+Shows the admin panel
+
+__`PureAdmin.hide()`__
+
+Not implemented.
 
 ## TODO
 
-- [ ] Add items to dashboard
-- [ ] Do not automatically make first visitor an admin
-- [ ] API to load css
-- [ ] Allow using a template in menu
-- [ ] Shortcuts to open menu or go to dashboard
-- [ ] Make it easier to click the menu or close button
-- [ ] Make info button more useful
+- [ ] Add helpers for rending pages with Blaze, React, or Vue
+- [ ] Allow hiding admin panel
+- [ ] Add option to store page name and props in url
+- [ ] Allow setting page title from page component
+- [ ] Allow page to add buttons or search box to page title
+- [ ] Add examples for showing admin panel with `FlowRouter` or with a keyboard shortcut
