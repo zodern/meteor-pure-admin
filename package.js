@@ -9,7 +9,6 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.8.0.2');
   api.use(['ecmascript', 'dynamic-import']);
-  api.use('meteorhacks:picker@1.0.3', 'server');
   api.use('svelte:compiler@2.15.3_1');
 
   api.mainModule('./src/main.js', 'client');
