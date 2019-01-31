@@ -1,9 +1,12 @@
 # Pure Admin For Meteor
 An isolated, customizable admin panel for Meteor
 
+**Version 0.5.0 has been completely rewritten to take advantage of new Meteor features and is not backwards compatible.**
+
 ## Isolated
-Pure Admin was designed to not interfere with your app.
-- Uses Shadow DOM to prevent your app's or Pure Admin's styles or dom from interfering with each other
+Pure Admin was designed to not interfere with your app:
+
+- Uses Shadow DOM to prevent your app's or Pure Admin's styles from interfering with each other
 - Does not use a router or other third party packages
 - UI components are built with Svelte, which turns the components into vinilla js during build time
 - Uses dynamic imports to reduce impact on bundle size.
