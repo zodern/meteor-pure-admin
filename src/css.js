@@ -24,6 +24,7 @@ export default `
     width: 150px;
     background-color: #F1F1F1;
     padding: 0 30px;
+    overflow-y: auto;
   }
 
   nav .page {
