@@ -23,3 +23,9 @@ Meteor.startup(function () {
   }
   configureAdminMongo();
 });
+
+Meteor.methods({
+  '_pa.isAdmin': function () {
+    return PureAdmin.isAdmin(this.userId);
+  }
+});

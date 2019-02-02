@@ -136,12 +136,27 @@ class AdminManager {
     }
   }
 
+  _isAdmin () {
+    return new Promise(resolve => {
+      Meteor.call('_pa.isAdmin', (err, result) => {
+        resolve(!err && result);
+      });
+    });
+  }
+
   async show () {
     if (this.container) {
       console.warn('Already shown');
       return;
     }
     const {default: AdminUI} = await import('./UI.svelte');
+    const isAdmin = await this._isAdmin();
+
+    if (!isAdmin) {
+      // TODO: create UI component for showing notifications
+      alert('You do not have access to this page.');
+      return;
+    }
 
     await Promise.all(this._initHandlers.map(handler => handler()));
 
