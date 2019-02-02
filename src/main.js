@@ -47,6 +47,10 @@ class AdminManager {
       render,
       title
     };
+
+    if (name === 'Dashboard' && this.activePage.name === null) {
+      this.goTo('Dashboard');
+    }
   }
 
   addMenuItem ({
@@ -148,7 +152,6 @@ class AdminManager {
     this.rootComponent = new AdminUI({
       target: this.container,
       data: {
-        pages: this.pages,
         menu: this.menu,
         activePage: this.activePage
       }
