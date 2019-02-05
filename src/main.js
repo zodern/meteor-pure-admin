@@ -149,7 +149,7 @@ class AdminManager {
       console.warn('Already shown');
       return;
     }
-    const {default: AdminUI} = await import('./UI.svelte');
+    const {default: AdminUI} = await import('./ui/UI.svelte');
     const isAdmin = await this._isAdmin();
 
     if (!isAdmin) {

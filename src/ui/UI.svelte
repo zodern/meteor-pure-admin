@@ -1,6 +1,6 @@
 <script>
-import Header from './ui/Header.svelte';
-import Nav from './ui/nav.svelte';
+import Header from './Header.svelte';
+import Nav from './Nav.svelte';
 
 export default {
   components: {
