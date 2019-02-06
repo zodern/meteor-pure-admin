@@ -3,6 +3,8 @@ An isolated, customizable admin panel for Meteor
 
 **Version 0.5.0 has been completely rewritten to take advantage of new Meteor features and is not backwards compatible.**
 
+**Requires Meteor 1.8 or newer**
+
 ## Isolated
 Pure Admin was designed to not interfere with your app:
 
