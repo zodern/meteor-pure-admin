@@ -1,6 +1,6 @@
 Package.describe({
   name: 'zodern:pure-admin',
-  version: '0.5.0',
+  version: '0.5.1',
   summary: 'Isolated, customizable admin panel for Meteor',
   git: 'https://github.com/zodern/meteor-pure-admin.git',
   documentation: 'README.md'
