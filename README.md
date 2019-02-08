@@ -68,8 +68,8 @@ Adds a page. When it is shown, `render` is passed:
 To override the default blank dashboard, add a page named `Dashboard`.
 
 __`PureAdmin.addMenuItem({ name: 'string', section: 'section', page: 'pageName' })`__
-__`PureAdmin.addMenuItem({ name: 'string', section: 'section', page: 'pageName', pageProps: {}, url: 'https://website.com'})`__
-__`PureAdmin.addMenuItem({ name: 'string', section: 'section', url: 'https://website.com'})`__
+__`PureAdmin.addMenuItem({ name: 'string', section: 'section', page: 'pageName', pageProps: {} })`__
+__`PureAdmin.addMenuItem({ name: 'string', section: 'section', url: 'https://website.com' })`__
 
 Adds a menu item to the side bar. If `page` is provided, it is shown when selected with `pageProps`. Otherwise, the url in `url` is opened in a new tab.
 
