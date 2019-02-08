@@ -5,6 +5,7 @@ export default `
     display: flex;
     width: 100vw;
     height: 100vh;
+    background-color: white;
   }
 
   .content {
@@ -21,7 +22,7 @@ export default `
   }
 
   nav {
-    width: 150px;
+    flex: 0 0 150px;
     background-color: #F1F1F1;
     padding: 0 30px;
     overflow-y: auto;
