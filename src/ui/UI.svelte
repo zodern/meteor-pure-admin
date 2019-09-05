@@ -3,6 +3,13 @@ import Header from './Header.svelte';
 import Nav from './Nav.svelte';
 
 export default {
+  data() {
+    return {
+      activePage: {},
+      historyCount: 0,
+      historyIndex: 0
+    }
+  },
   components: {
     Nav,
     Header
@@ -18,6 +25,12 @@ export default {
       } else {
         return activePage.page.title || 'Untitled';
       }
+    },
+    canGoBack ({ historyCount, historyIndex }) {
+      return historyIndex > 0
+    },
+    canGoForward ({ historyCount, historyIndex }) {
+      return historyIndex + 1 < historyCount;
     }
   }
 }
@@ -25,7 +38,7 @@ export default {
 <div class="wrapper">
   <Nav {menu} activePage={activePage} on:goTo />
   <div class="content">
-    <Header title={title} />
+    <Header title={title} {canGoForward} {canGoBack } on:goBack on:goForward />
     <div ref:content class="contentComponent"></div>
   </div>
 </div>

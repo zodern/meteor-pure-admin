@@ -32,6 +32,7 @@ export default `
     font-size: 16px;
     color: black;
     margin-bottom: 7px;
+    cursor: pointer;
   }
 
   nav .page.selected {
@@ -64,5 +65,10 @@ export default `
 
   td, th {
     padding: 10px 0;
+  }
+
+  header h1 {
+    display: inline-block;
+    vertical-align: middle;
   }
 `

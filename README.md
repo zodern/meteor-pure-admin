@@ -42,7 +42,7 @@ Ideas for packages
 
 __PureAdmin.isAdmin__
 
-Must be set before Meteor.startup. Returns true if the user is an admin.
+Returns true if the user is an admin. The function can be overridden before Meteor.startup to use custom logic for deciding who is an admin.
 
 ```
 PureAdmin.isAdmin = function(userId) {

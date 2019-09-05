@@ -18,6 +18,8 @@ class AdminManager {
   contentComponent = null;
 
   history = [];
+  historyIndex = -1;
+
   activePage = {
     component: null,
     type: null,
@@ -82,6 +84,34 @@ class AdminManager {
       page = page.page;
     }
 
+    if (this.historyIndex < this.history.length - 1) {
+      this.history.splice(this.historyIndex + 1, this.history.length - this.historyIndex - 1);
+    }
+
+    this.history.push({
+      props,
+      page
+    });
+    this.historyIndex += 1;
+
+    this.displayCurrentPage();
+  }
+
+  goBack = () => {
+    if (this.historyIndex > 0) {
+      this.historyIndex -= 1;
+      this.displayCurrentPage();
+    }
+  }
+
+  goForward = () => {
+    if (this.historyIndex < this.history.length - 1) {
+      this.historyIndex += 1;
+      this.displayCurrentPage();
+    }
+  }
+
+  displayCurrentPage() {
     const self = this;
     const utils = {
       renderSvelte(_component) {
@@ -105,6 +135,11 @@ class AdminManager {
           console.warn('unknown content component type', this.activePage.type);
       }
     }
+
+    const {
+      props,
+      page
+    } = this.history[this.historyIndex];
     
     this.activePage = {
       component: null,
@@ -117,8 +152,11 @@ class AdminManager {
     if (this.activePage.page) {
       this.activePage.page.render(utils, this.activePage.props, this.contentEl);
     }
+
     this.rootComponent.set({
-      activePage: this.activePage
+      activePage: this.activePage,
+      historyCount: this.history.length,
+      historyIndex: this.historyIndex
     });
   }
 
@@ -172,6 +210,8 @@ class AdminManager {
       }
     });
     this.rootComponent.on('goTo', this.goTo);
+    this.rootComponent.on('goBack', this.goBack);
+    this.rootComponent.on('goForward', this.goForward);
     this.contentEl = this.rootComponent.refs.content;
     if (this.pages.Dashboard) {
       this.goTo('Dashboard');
