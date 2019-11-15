@@ -15,7 +15,7 @@ class AdminManager {
 
   container = null;
   rootComponent = null;
-  contentComponent = null;
+  contentEl = null;
 
   history = [];
   historyIndex = -1;
@@ -39,7 +39,6 @@ class AdminManager {
     render = () => {},
     title = () => name
   }) {
-    // TODO: show warning when name already exists
     if (name in this.pages) {
       console.warn(`PureAdmin: page with name already exists: ${name}`);
     }
@@ -71,10 +70,14 @@ class AdminManager {
     });
 
     if (this.rootComponent) {
-      this.rootComponent.set({
+      this.rootComponent.$set({
         menu: this.menu
       });
     }
+  }
+
+  svelteGoTo = (event) => {
+    this.goTo(event.detail);
   }
 
   goTo = (page) => {
@@ -117,19 +120,19 @@ class AdminManager {
       renderSvelte(_component) {
         self.activePage.component = new _component({
           target: self.contentEl,
-          data: {
-            props: self.activePage.props
+          props: {
+            ...self.activePage.props
           }
         });
         self.activePage.type = 'svelte';
-        self.activePage.component.on('goTo', self.goTo);
+        self.activePage.component.$on('goTo', self.svelteGoTo);
       }
     };
 
     if (this.activePage.component) {
       switch (this.activePage.type) {
         case 'svelte':
-          this.activePage.component.destroy();
+          this.activePage.component.$destroy();
           break;
         default:
           console.warn('unknown content component type', this.activePage.type);
@@ -153,7 +156,7 @@ class AdminManager {
       this.activePage.page.render(utils, this.activePage.props, this.contentEl);
     }
 
-    this.rootComponent.set({
+    this.rootComponent.$set({
       activePage: this.activePage,
       historyCount: this.history.length,
       historyIndex: this.historyIndex
@@ -204,15 +207,16 @@ class AdminManager {
     });
     this.rootComponent = new AdminUI({
       target: this.container,
-      data: {
+      props: {
         menu: this.menu,
         activePage: this.activePage
       }
     });
-    this.rootComponent.on('goTo', this.goTo);
-    this.rootComponent.on('goBack', this.goBack);
-    this.rootComponent.on('goForward', this.goForward);
-    this.contentEl = this.rootComponent.refs.content;
+    this.rootComponent.$on('goTo', this.svelteGoTo);
+    this.rootComponent.$on('goBack', this.goBack);
+    this.rootComponent.$on('goForward', this.goForward);
+    this.contentEl = this.rootComponent.getContentEl();
+
     if (this.pages.Dashboard) {
       this.goTo('Dashboard');
     }
