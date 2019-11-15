@@ -61,14 +61,16 @@ __`PureAdmin.addPage({name: 'pageName', render(utils, props, contentEl) => {}, t
 
 Adds a page. When it is shown, `render` is passed:
 - `utils` which is an object with:
-  - `renderSvelte(svelteComponent)` Renders a svelte component, passing `props` as data, and listening to the `goTo` event
+  - `renderSvelte(svelteComponent)` Renders a svelte component, passing `props` as data, and listening to the `goTo` event. A `goTo` event can be dispatched instead of calling `PureAdmin.goTo`
 - props
 - contentEl - the container element any page content should go into
 
 To override the default blank dashboard, add a page named `Dashboard`.
 
 __`PureAdmin.addMenuItem({ name: 'string', section: 'section', page: 'pageName' })`__
+
 __`PureAdmin.addMenuItem({ name: 'string', section: 'section', page: 'pageName', pageProps: {} })`__
+
 __`PureAdmin.addMenuItem({ name: 'string', section: 'section', url: 'https://website.com' })`__
 
 Adds a menu item to the side bar. If `page` is provided, it is shown when selected with `pageProps`. Otherwise, the url in `url` is opened in a new tab.
