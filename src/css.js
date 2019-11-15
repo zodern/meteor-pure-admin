@@ -71,4 +71,8 @@ export default `
     display: inline-block;
     vertical-align: middle;
   }
+
+  header button[disabled] {
+    opacity: 0.8;
+  }
 `
