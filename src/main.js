@@ -1,3 +1,25 @@
+let currentModule = null;
+
+if (module.hot) {
+  module.onRequire({
+    before(importedModule) {
+      if (importedModule.hot) {
+        importedModule.hot.dispose(() => {
+          PureAdmin._clearForModule(importedModule.id);
+        });
+      }
+      const data = { previousModule: currentModule };
+      currentModule = importedModule.id;
+      return data;
+    },
+    after(_module, data) {
+      currentModule = data.previousModule;
+    }
+  });
+}
+
+const addedBy = Symbol();
+
 class AdminManager {
   _initHandlers = [
     () => import('./css.js').then(styles => {
@@ -46,7 +68,8 @@ class AdminManager {
     this.pages[name] = {
       name,
       render,
-      title
+      title,
+      [addedBy]: currentModule
     };
 
     if (name === 'Dashboard' && this.activePage.name === null) {
@@ -66,7 +89,8 @@ class AdminManager {
       name,
       page,
       pageProps,
-      url
+      url,
+      [addedBy]: currentModule
     });
 
     if (this.rootComponent) {
@@ -171,6 +195,7 @@ class AdminManager {
   }
 
   onInit(handler) {
+    handler[addedBy] = currentModule;
     this._initHandlers.push(handler);
     if (this.rootComponent) {
       handler();
@@ -182,6 +207,28 @@ class AdminManager {
       Meteor.call('_pa.isAdmin', (err, result) => {
         resolve(!err && result);
       });
+    });
+  }
+
+  _clearForModule(moduleId) {
+    Object.keys(this.pages).forEach(key => {
+      if (this.pages[key][addedBy] === moduleId) {
+        delete this.pages[key];
+      }
+    });
+
+    Object.keys(this.menu).forEach(sectionName => {
+      this.menu[sectionName] = this.menu[sectionName].filter(menuItem => {
+        return menuItem[addedBy] !== moduleId;
+      });
+
+      if (this.menu[sectionName].length === 0) {
+        delete this.menu[sectionName];
+      }
+    });
+
+    this.rootComponent.$set({
+      menu: this.menu
     });
   }
 
@@ -199,7 +246,14 @@ class AdminManager {
       return;
     }
 
-    await Promise.all(this._initHandlers.map(handler => handler()));
+    await Promise.all(this._initHandlers.map(handler => {
+      let previousModule = currentModule;
+      currentModule = handler[addedBy];
+      const potentialPromise = handler()
+      currentModule = previousModule;
+
+      return potentialPromise;
+    }));
 
     this.container = document.body.attachShadow({ mode: 'open' });
     this.css.forEach(styles => {
