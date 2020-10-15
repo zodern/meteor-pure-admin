@@ -227,9 +227,11 @@ class AdminManager {
       }
     });
 
-    this.rootComponent.$set({
-      menu: this.menu
-    });
+    if (this.rootComponent) {
+      this.rootComponent.$set({
+        menu: this.menu
+      });
+    }
   }
 
   async show () {
