@@ -10,7 +10,6 @@ Package.onUse(function(api) {
   api.versionsFrom('1.8.0.2');
   api.use(['ecmascript', 'dynamic-import']);
   api.use('svelte:compiler@3.6.7_1||4.0.0-beta.1');
-  api.use('hot-module-replacement', { weak: true });
 
   api.mainModule('./src/main.js', 'client');
   api.mainModule('./src/server.js', 'server');
