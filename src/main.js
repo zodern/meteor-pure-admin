@@ -1,7 +1,7 @@
 let currentModule = null;
 
-if (module.hot) {
-  module.onRequire({
+if (module.hot && module.hot.onRequire) {
+  module.hot.onRequire({
     before(importedModule) {
       if (importedModule.hot) {
         importedModule.hot.dispose(() => {
