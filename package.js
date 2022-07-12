@@ -8,10 +8,11 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.8.0.2');
-  api.use(['ecmascript', 'dynamic-import']);
+  api.use(['typescript', 'ecmascript', 'dynamic-import']);
   api.use('zodern:melte@1.4.0');
+  api.use('zodern:types');
 
-  api.mainModule('./src/main.js', 'client');
+  api.mainModule('./src/main.ts', 'client');
   api.mainModule('./src/server.js', 'server');
 });
 

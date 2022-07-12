@@ -1,4 +1,4 @@
-let currentModule = null;
+let currentModule: any = null;
 
 if (module.hot && module.hot.onRequire) {
   module.hot.onRequire({
@@ -20,29 +20,62 @@ if (module.hot && module.hot.onRequire) {
 
 const addedBy = Symbol();
 
+type RenderUtils = {
+  renderSvelte: (component: any) => void
+};
+
+type Page = {
+  name: string,
+  render: (utils: RenderUtils, props: any, container: HTMLDivElement) => void,
+  title: () => string,
+  [addedBy]?: string
+}
+
+type MenuEntry = {
+  name: string;
+  page?: string;
+  section?: string;
+  url?: string;
+  pageProps?: any;
+  [addedBy]?: string;
+}
+
 class AdminManager {
-  _initHandlers = [
+  _initHandlers: (() => void)[] = [
     () => import('./css.js').then(styles => {
       this.addCss(styles.default);
     })
   ];
-  pages = {};
-  menu = {
+  pages: {
+    [key: string]: Page
+  } = {};
+  menu: {
+    [key: string]: MenuEntry[]
+  } = {
     '': [{
       name: 'Dashboard',
       page: 'Dashboard'
     }]
   };
-  css = [];
+  css: string[] = [];
 
-  container = null;
-  rootComponent = null;
+  container: ShadowRoot | null = null;
+  rootComponent: any = null;
   contentEl = null;
 
-  history = [];
+  history: {
+    page: string,
+    props: any
+  }[] = [];
   historyIndex = -1;
 
-  activePage = {
+  activePage: {
+    component: any,
+    type: string | null,
+    name: string | null,
+    props: any,
+    page: Page | null
+  } = {
     component: null,
     type: null,
     name: null,
@@ -50,17 +83,17 @@ class AdminManager {
     page: null
   };
 
-  _injectCss(content) {
+  _injectCss(content: string) {
     const style = document.createElement('style');
     style.textContent = content;
-    this.container.appendChild(style);
+    this.container!.appendChild(style);
   }
 
   addPage ({
     name,
     render = () => {},
     title = () => name
-  }) {
+  }: Page) {
     if (name in this.pages) {
       console.warn(`PureAdmin: page with name already exists: ${name}`);
     }
@@ -83,7 +116,7 @@ class AdminManager {
     page,
     pageProps,
     url
-  }) {
+  }: MenuEntry) {
     this.menu[section] = this.menu[section] || [];
     this.menu[section].push({
       name,
@@ -100,11 +133,11 @@ class AdminManager {
     }
   }
 
-  svelteGoTo = (event) => {
+  svelteGoTo = (event: { detail: any }) => {
     this.goTo(event.detail);
   }
 
-  goTo = (page) => {
+  goTo = (page: string | { page: string, props: any }) => {
     let props = {};
     if (typeof page === 'object') {
       props = page.props;
@@ -141,7 +174,7 @@ class AdminManager {
   displayCurrentPage() {
     const self = this;
     const utils = {
-      renderSvelte(_component) {
+      renderSvelte(_component: any) {
         self.activePage.component = new _component({
           target: self.contentEl,
           props: {
@@ -177,7 +210,7 @@ class AdminManager {
     }
 
     if (this.activePage.page) {
-      this.activePage.page.render(utils, this.activePage.props, this.contentEl);
+      this.activePage.page.render(utils, this.activePage.props, this.contentEl!);
     }
 
     this.rootComponent.$set({
@@ -187,15 +220,15 @@ class AdminManager {
     });
   }
 
-  addCss(content) {
+  addCss(content: string) {
     this.css.push(content);
     if (this.rootComponent) {
       this._injectCss(content);
     }
   }
 
-  onInit(handler) {
-    handler[addedBy] = currentModule;
+  onInit(handler: () => void) {
+    (handler as any)[addedBy] = currentModule;
     this._initHandlers.push(handler);
     if (this.rootComponent) {
       handler();
@@ -204,13 +237,13 @@ class AdminManager {
 
   _isAdmin () {
     return new Promise(resolve => {
-      Meteor.call('_pa.isAdmin', (err, result) => {
+      Meteor.call('_pa.isAdmin', (err: Meteor.Error, result: boolean) => {
         resolve(!err && result);
       });
     });
   }
 
-  _clearForModule(moduleId) {
+  _clearForModule(moduleId: string) {
     Object.keys(this.pages).forEach(key => {
       if (this.pages[key][addedBy] === moduleId) {
         delete this.pages[key];
@@ -250,7 +283,7 @@ class AdminManager {
 
     await Promise.all(this._initHandlers.map(handler => {
       let previousModule = currentModule;
-      currentModule = handler[addedBy];
+      currentModule = (handler as any)[addedBy];
       const potentialPromise = handler()
       currentModule = previousModule;
 
