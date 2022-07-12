@@ -27,7 +27,7 @@ type RenderUtils = {
 type Page = {
   name: string,
   render: (utils: RenderUtils, props: any, container: HTMLDivElement) => void,
-  title: () => string,
+  title: string | ((props: any) => string),
   [addedBy]?: string
 }
 
