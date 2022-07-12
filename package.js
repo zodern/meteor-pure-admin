@@ -9,8 +9,8 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.8.2');
   api.use(['typescript@3.7.0||4.0.0', 'ecmascript', 'dynamic-import']);
-  api.use('zodern:melte@1.4.0');
-  api.use('zodern:types@1.0.1');
+  api.use('zodern:melte@1.6.1');
+  api.use('zodern:types@1.0.6');
 
   api.mainModule('./src/main.ts', 'client');
   api.mainModule('./src/server.js', 'server');
