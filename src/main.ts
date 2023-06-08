@@ -42,7 +42,7 @@ type MenuEntry = {
 
 class AdminManager {
   _initHandlers: (() => void)[] = [
-    () => import('./css.js').then(styles => {
+    () => import('./css').then(styles => {
       this.addCss(styles.default);
     })
   ];
